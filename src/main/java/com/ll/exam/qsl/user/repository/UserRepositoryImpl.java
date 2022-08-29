@@ -38,8 +38,11 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 .select(siteUser)
                 .from(siteUser)
                 .orderBy(siteUser.id.asc())
+                .fetchFirst();
+                /*
                 .limit(1)
                 .fetchOne();
+                 */
     }
 
     @Override
@@ -50,4 +53,16 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 .orderBy(siteUser.id.asc())
                 .fetch();
     }
+
+    @Override
+    public List<SiteUser> searchQsl(String kw) {
+        return jpaQueryFactory
+                .select(siteUser)
+                .from(siteUser)
+                // contains == like="%%"
+                // 따라서 contains 쓸 때는 % 포함 X
+                .where(siteUser.username.contains(kw).or(siteUser.email.contains(kw)))
+                .fetch();
+    }
+
 }

@@ -9,5 +9,7 @@ public interface UserRepositoryCustom {
     long getQslCount();
     SiteUser getQslUserOrderByIdAscOne();
     List<SiteUser> getQslUsersOrderByIdAsc();
+    List<SiteUser> searchQsl(String kw);
+
 
 }
