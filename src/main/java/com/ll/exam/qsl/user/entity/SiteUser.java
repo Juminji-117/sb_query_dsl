@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
+// 빌더는 내부적으로 전체인자생성자를 호출
 @Entity
 @Setter
 @Getter

@@ -40,6 +40,8 @@ dependencies {
 	//querydsl 추가
 	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
 	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
+
+	implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.0") // 바인딩 변수 자리에 ?로 표시된 SQL문이 실제 바인딩 변수로 표시되도록 SQL 로깅
 }
 
 tasks.named('test') {
