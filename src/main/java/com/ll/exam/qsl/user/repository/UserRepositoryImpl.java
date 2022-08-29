@@ -15,19 +15,18 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     // 그 전에 JPAQueryFactory Bean에 등록해주고 시작
     @Override
     public SiteUser getQslUser(Long id) {
-        //아래 주석들은 윗 query문을 아래처럼 쓸 수 있다는 예시
-
-        /*
-        SELECT *
-        FROM site_user
-        WHERE id = 1
-        */
-
-
-        return jpaQueryFactory
+    return jpaQueryFactory
                 .select(siteUser)
                 .from(siteUser)
                 .where(siteUser.id.eq(id))
+                .fetchOne();
+    }
+
+    @Override
+    public long getQslCount() {
+        return jpaQueryFactory
+                .select(siteUser.count())
+                .from(siteUser)
                 .fetchOne();
     }
 }
