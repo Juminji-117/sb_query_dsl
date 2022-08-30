@@ -205,7 +205,7 @@ class UserRepositoryTests {
         assertThat(users.size()).isEqualTo(pageSize);
     }
 
-    @Rollback(true) // Test지만 DB에 반영되도록 Rollback(false)
+    @Rollback(true) // Test지만 DB에 반영되지 않도록 Rollback(true)로 변경
     @Test
     @DisplayName("회원에게 관심사를 등록할 수 있다.")
     void t10() {
