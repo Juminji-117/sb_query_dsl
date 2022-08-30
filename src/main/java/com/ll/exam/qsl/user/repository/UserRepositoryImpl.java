@@ -94,10 +94,19 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
         }
 
         List<SiteUser> users = usersQuery.fetch();
-        LongSupplier totalSupplier = () -> 2;
 
-        // 앞에 리스트와 달리 페이지는 따로 생성을 해줘야 됨
-       return PageableExecutionUtils.getPage(users, pageable, totalSupplier);
+        // public static interface PageableExecutionUtils.TotalSupplier는 곧 제공이 끝날 인터페이스이므로 다른 구문으로 대체
+        // 페이지 생성하기 위한 siteUser.count() 구하는 쿼리
+        JPAQuery<Long> usersCountQuery = jpaQueryFactory
+                .select(siteUser.count())
+                .from(siteUser)
+                .where(
+                        siteUser.username.contains(kw)
+                                .or(siteUser.email.contains(kw))
+                );
+
+        // 앞에 리스트와 달리 페이지는 따로 또 생성을 해줘야 됨
+        return PageableExecutionUtils.getPage(users, pageable, usersCountQuery::fetchOne);
     }
 
 }
