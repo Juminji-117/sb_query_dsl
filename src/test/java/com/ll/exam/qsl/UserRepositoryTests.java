@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -204,6 +205,7 @@ class UserRepositoryTests {
         assertThat(users.size()).isEqualTo(pageSize);
     }
 
+    @Rollback(true) // Test지만 DB에 반영되도록 Rollback(false)
     @Test
     @DisplayName("회원에게 관심사를 등록할 수 있다.")
     void t10() {
