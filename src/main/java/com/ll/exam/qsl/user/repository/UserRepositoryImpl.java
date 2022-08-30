@@ -64,12 +64,14 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 // contains == like="%%"
                 // 따라서 contains 쓸 때는 % 포함 X
                 .where(siteUser.username.contains(kw).or(siteUser.email.contains(kw)))
+                .orderBy(siteUser.id.desc())
                 .fetch();
     }
 
     @Override
     public Page<SiteUser> searchQsl(String kw, Pageable pageable) {
         return null;
+
     }
 
 }
