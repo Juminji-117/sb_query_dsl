@@ -35,7 +35,7 @@ public class TestInitData {
             u2.addInterestKeywordContent("클라이밍");
             u2.addInterestKeywordContent("마라톤");
 
-            userRepository.saveAll(Arrays.asList(u1, u2));
+            userRepository.saveAll(Arrays.asList(u1, u2)); // 이 코드가 영속성 작업(=DB 저장)
         };
     }
 }
