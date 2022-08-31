@@ -28,14 +28,16 @@ public class TestInitData {
                     .password("{noop}1234")
                     .email("user2@test.com")
                     .build();
+            userRepository.saveAll(Arrays.asList(u1, u2)); // 부모(user) 영속성 작업 먼저 후에
 
             u1.addInterestKeywordContent("축구");
             u1.addInterestKeywordContent("농구");
 
+            u2.addInterestKeywordContent("농구");
             u2.addInterestKeywordContent("클라이밍");
             u2.addInterestKeywordContent("마라톤");
 
-            userRepository.saveAll(Arrays.asList(u1, u2)); // 이 코드가 영속성 작업(=DB 저장)
+            userRepository.saveAll(Arrays.asList(u1, u2)); // 자식(keyword content) 영속성 작업
         };
     }
 }
