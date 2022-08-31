@@ -1,5 +1,6 @@
 package com.ll.exam.qsl.user.repository;
 
+import com.ll.exam.qsl.interestkeyword.entity.InterestKeyword;
 import com.ll.exam.qsl.user.entity.QSiteUser;
 import com.ll.exam.qsl.user.entity.SiteUser;
 import com.querydsl.core.types.Order;
@@ -13,9 +14,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.support.PageableExecutionUtils;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.LongSupplier;
 
+import static com.ll.exam.qsl.interestkeyword.entity.QInterestKeyword.interestKeyword;
 import static com.ll.exam.qsl.user.entity.QSiteUser.siteUser;
 
 @RequiredArgsConstructor
@@ -108,5 +112,30 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
         // 앞에 리스트와 달리 페이지는 따로 또 생성을 해줘야 됨
         return PageableExecutionUtils.getPage(users, pageable, usersCountQuery::fetchOne);
     }
+
+    @Override
+    public List<SiteUser> getQslUsersByInterestKeyword(String kw) {
+
+        // 방법1
+        /*
+        return jpaQueryFactory
+                .select(siteUser)
+                .from(siteUser)
+                .where(siteUser.interestKeywords.contains(new InterestKeyword(kw)))
+                .orderBy(siteUser.id.desc())
+                .fetch();
+
+         */
+
+        //방법 2
+        return jpaQueryFactory
+                .selectFrom(siteUser)
+                .innerJoin(siteUser.interestKeywords, interestKeyword) // 두번째 붙은 인자는 SQL의 AS와 같은 역할
+                .where(
+                        interestKeyword.content.eq(kw)
+                )
+                .fetch();
+    }
+
 
 }

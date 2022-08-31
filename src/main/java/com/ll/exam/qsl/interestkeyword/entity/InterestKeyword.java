@@ -1,4 +1,4 @@
-package com.ll.exam.qsl.interestKeyword.entity;
+package com.ll.exam.qsl.interestkeyword.entity;
 
 import lombok.*;
 

@@ -1,12 +1,12 @@
 package com.ll.exam.qsl.user.entity;
 
+import com.ll.exam.qsl.interestkeyword.entity.InterestKeyword;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.ll.exam.qsl.interestKeyword.entity.InterestKeyword;
 
 // 빌더는 내부적으로 전체인자생성자를 호출
 @Entity
