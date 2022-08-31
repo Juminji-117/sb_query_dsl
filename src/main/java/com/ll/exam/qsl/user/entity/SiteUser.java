@@ -39,8 +39,13 @@ public class SiteUser {
         interestKeywords.add(new InterestKeyword(keywordContent));
     }
 
-    public void addFollower(SiteUser follower) {
+    @Builder.Default
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<SiteUser> followers = new HashSet<>();
 
+
+    public void addFollower(SiteUser follower) {
+        followers.add(follower);
     }
 
 }
