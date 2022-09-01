@@ -44,8 +44,8 @@ public class SiteUser {
     private Set<SiteUser> followers = new HashSet<>();
 
 
-    public void addFollower(SiteUser follower) {
-        followers.add(follower);
+    public void follow(SiteUser following) {
+        following.getFollowers().add(this);
     }
 
 }
