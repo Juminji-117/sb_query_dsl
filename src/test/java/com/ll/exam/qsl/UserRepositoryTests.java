@@ -266,7 +266,18 @@ class UserRepositoryTests {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("본인이 본인을 follow 할 수 없다.")
+    @Rollback(false)
+    void t14() {
+        SiteUser u1 = userRepository.getQslUser(1L);
+
+        u1.follow(u1);
+
+        assertThat(u1.getFollowers().size()).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("특정회원의 follower들과 following들을 모두 알 수 있어야 한다.")
     @Rollback(false)
     void t15() {
         SiteUser u1 = userRepository.getQslUser(1L);
