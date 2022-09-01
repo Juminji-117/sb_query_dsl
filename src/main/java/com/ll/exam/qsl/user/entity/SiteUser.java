@@ -43,9 +43,14 @@ public class SiteUser {
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<SiteUser> followers = new HashSet<>();
 
+    @Builder.Default
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<SiteUser> followings = new HashSet<>();
+
 
     public void follow(SiteUser following) {
         following.getFollowers().add(this);
+        this.getFollowings().add(following);
     }
 
 }
