@@ -33,21 +33,21 @@ class UserRepositoryTests {
     @Test
     @DisplayName("회원 생성")
     void t1() {
-        SiteUser u3 = SiteUser.builder()
-                .username("user3")
+        SiteUser u9 = SiteUser.builder()
+                .username("user9")
                 .password("{noop}1234")
-                .email("user3@test.com")
+                .email("user9@test.com")
                 .build();
 
-        SiteUser u4 = SiteUser.builder()
-                .username("user4")
+        SiteUser u10 = SiteUser.builder()
+                .username("user10")
                 .password("{noop}1234")
-                .email("user4@test.com")
+                .email("user10@test.com")
                 .build();
 
         // SiteUser u4 = new SiteUser(null, "user4", "{noop}1234", "user4@test.com");
 
-        userRepository.saveAll(Arrays.asList(u3, u4));
+        userRepository.saveAll(Arrays.asList(u9, u10));
     }
 
     @Test
@@ -203,6 +203,13 @@ class UserRepositoryTests {
         List<SiteUser> users = usersPage.get().toList();
 
         assertThat(users.size()).isEqualTo(pageSize);
+
+        SiteUser u = users.get(0);
+
+        assertThat(u.getId()).isEqualTo(7L);
+        assertThat(u.getUsername()).isEqualTo("user7");
+        assertThat(u.getEmail()).isEqualTo("user7@test.com");
+        assertThat(u.getPassword()).isEqualTo("{noop}1234");
     }
 
     @Rollback(true) // Test지만 DB에 반영되지 않도록 Rollback(true)로 변경
