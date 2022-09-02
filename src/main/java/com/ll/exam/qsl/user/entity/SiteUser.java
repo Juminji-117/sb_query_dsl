@@ -32,11 +32,11 @@ public class SiteUser {
     // 즉 빌더를 통해 만든 InterestKeyword 객체의 Set 필드가 null로 초기화되지 않고 설정해두었던 값으로 유지하게 하려면
     // @Build.Default 붙여줘야 됨
     @Builder.Default
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<InterestKeyword> interestKeywords = new HashSet<>();
 
     public void addInterestKeywordContent(String keywordContent) {
-        interestKeywords.add(new InterestKeyword(keywordContent));
+        interestKeywords.add(new InterestKeyword(this, keywordContent));
     }
 
     @Builder.Default

@@ -1,7 +1,5 @@
 package com.ll.exam.qsl.user.repository;
 
-import com.ll.exam.qsl.interestkeyword.entity.InterestKeyword;
-import com.ll.exam.qsl.user.entity.QSiteUser;
 import com.ll.exam.qsl.user.entity.SiteUser;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
@@ -14,10 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.support.PageableExecutionUtils;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.function.LongSupplier;
 
 import static com.ll.exam.qsl.interestkeyword.entity.QInterestKeyword.interestKeyword;
 import static com.ll.exam.qsl.user.entity.QSiteUser.siteUser;
