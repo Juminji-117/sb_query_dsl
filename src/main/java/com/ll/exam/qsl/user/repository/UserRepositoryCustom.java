@@ -16,5 +16,4 @@ public interface UserRepositoryCustom {
     List<SiteUser> getQslUsersByInterestKeyword(String kw);
 
 
-
 }

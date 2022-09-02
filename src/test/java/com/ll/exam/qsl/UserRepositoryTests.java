@@ -307,4 +307,13 @@ class UserRepositoryTests {
         assertThat(u2.getFollowings().size()).isEqualTo(0);
 
     }
+
+    @Test
+    @DisplayName("u1은 더 이상 농구에 관심이 없습니다.")
+    @Rollback(false)
+    void t16() {
+        SiteUser u1 = userRepository.getQslUser(1L);
+
+        u1.removeInterestKeywordContent("농구");
+    }
 }
