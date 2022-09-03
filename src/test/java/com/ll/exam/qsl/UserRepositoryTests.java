@@ -327,7 +327,7 @@ class UserRepositoryTests {
 
         u1.follow(u2);
 
-        Set<InterestKeyword> interestKeywords = userRepository.getFollowingsInterestKeywords(u1);
+        List<InterestKeyword> interestKeywords = userRepository.getFollowingsInterestKeywords(u1);
         assertThat(interestKeywords.size()).isEqualTo(3);
 
     }
