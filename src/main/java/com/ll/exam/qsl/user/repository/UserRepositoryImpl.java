@@ -1,5 +1,7 @@
 package com.ll.exam.qsl.user.repository;
 
+import com.ll.exam.qsl.interestkeyword.entity.InterestKeyword;
+import com.ll.exam.qsl.user.entity.QSiteUser;
 import com.ll.exam.qsl.user.entity.SiteUser;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.support.PageableExecutionUtils;
 
 import java.util.List;
+import java.util.Set;
 
 import static com.ll.exam.qsl.interestkeyword.entity.QInterestKeyword.interestKeyword;
 import static com.ll.exam.qsl.user.entity.QSiteUser.siteUser;
@@ -131,4 +134,13 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 )
                 .fetch();
     }
+
+    public Set<InterestKeyword> getFollowingsInterestKeywords(SiteUser follower) {
+
+        return (Set<InterestKeyword>) jpaQueryFactory.selectFrom(interestKeyword)
+                .innerJoin(interestKeyword.user, siteUser)
+                .where(interestKeyword.user.in(follower.getFollowings()))
+                .fetch();
+    }
+
 }
