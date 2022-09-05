@@ -320,16 +320,29 @@ class UserRepositoryTests {
     }
 
     @Test
-    @DisplayName("회원이 팔로우한 회원들의 관심사들을 중복을 제거하여 조회")
+    @DisplayName("팔로우중인 사람들의 관심사 중복 제거하여 조회, ManyToMany 관계")
     void t17() {
-        SiteUser u1 = userRepository.getQslUser(1L);
-        SiteUser u2 = userRepository.getQslUser(2L);
+        // getFollowingsInterestKeywords ver. test
+        SiteUser u = userRepository.getQslUser(8L);
 
-        u1.follow(u2);
+        List<String> interestKeywords = userRepository.getFollowingsInterestKeywords(u);
+        assertThat(interestKeywords.size()).isEqualTo(5);
 
-        List<InterestKeyword> interestKeywords = userRepository.getFollowingsInterestKeywords(u1);
-        assertThat(interestKeywords.size()).isEqualTo(3);
 
+        // getKeywordContentsByFollowingsOf ver. test
+        /*
+        SiteUser u = userRepository.getQslUser(8L);
+
+        List<String> keywordContents = userRepository.getKeywordContentsByFollowingsOf(u);
+
+        assertThat(keywordContents.size()).isEqualTo(5);
+
+        u = userRepository.getQslUser(7L);
+
+        keywordContents = userRepository.getKeywordContentsByFollowingsOf(u);
+
+        assertThat(keywordContents.size()).isEqualTo(4);
+        */
     }
 
 }

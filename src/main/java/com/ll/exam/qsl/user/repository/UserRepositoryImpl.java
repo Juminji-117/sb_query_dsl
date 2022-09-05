@@ -1,6 +1,6 @@
 package com.ll.exam.qsl.user.repository;
 
-import com.ll.exam.qsl.interestkeyword.entity.InterestKeyword;
+import com.ll.exam.qsl.user.entity.QSiteUser;
 import com.ll.exam.qsl.user.entity.SiteUser;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
@@ -133,11 +133,30 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 .fetch();
     }
 
-    public List<InterestKeyword> getFollowingsInterestKeywords(SiteUser follower) {
+    // 팔로우중인 사람들의 관심사 중복 제거하여 조회 ver.1
+    public List<String> getFollowingsInterestKeywords(SiteUser follower) {
 
-        return jpaQueryFactory.selectFrom(interestKeyword)
-                .innerJoin(interestKeyword.user, siteUser)
+        return jpaQueryFactory.select(interestKeyword.content) // content만 가져오므로 List<InterestKeyWord> X List<String>
+                .from(interestKeyword)
+                .distinct()
+                .innerJoin(interestKeyword.user)
+                // ex. follower가 테스트데이터 u8이면 in 인수로 (u3, u4, u5, y6, u7) 이런식으로 파싱돼서 들어감
                 .where(interestKeyword.user.in(follower.getFollowings()))
+                .fetch();
+    }
+
+    // 팔로우중인 사람들의 관심사 중복 제거하여 조회 ver.2
+    @Override
+    public List<String> getKeywordContentsByFollowingsOf(SiteUser user) {
+        QSiteUser siteUser2 = new QSiteUser("siteUser2");
+
+        return jpaQueryFactory
+                .select(interestKeyword.content)
+                .distinct()
+                .from(interestKeyword)
+                .innerJoin(interestKeyword.user, siteUser) // site_user
+                .innerJoin(siteUser.followers, siteUser2)
+                .where(siteUser2.id.eq(user.getId()))
                 .fetch();
     }
 

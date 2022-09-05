@@ -1,6 +1,5 @@
 package com.ll.exam.qsl.user.repository;
 
-import com.ll.exam.qsl.interestkeyword.entity.InterestKeyword;
 import com.ll.exam.qsl.user.entity.SiteUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,5 +14,8 @@ public interface UserRepositoryCustom {
     List<SiteUser> searchQsl(String kw);
     Page<SiteUser> searchQsl(String kw, Pageable pageable);
     List<SiteUser> getQslUsersByInterestKeyword(String kw);
-    List<InterestKeyword> getFollowingsInterestKeywords(SiteUser u1);
+    List<String> getFollowingsInterestKeywords(SiteUser follower);
+
+    // getFollowingsInterestKeywords와 같은 기능 다른 구현
+    List<String> getKeywordContentsByFollowingsOf(SiteUser user);
 }
